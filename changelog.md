@@ -1,4 +1,5 @@
 # Change Log
+
 All notable changes to the "stun" package will be documented in this file.
 
 ## [2.1.0] - 2019-11-23

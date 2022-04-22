@@ -66,7 +66,7 @@ test('should use provided message', (done) => {
   request('stun.l.google.com:19302', options, (error, res) => {
     expect(error).toBe(null);
     expect(res.transactonId).toEqual(request_.transactonId);
-
+    server.close();
     done();
   });
 });

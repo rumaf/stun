@@ -5,7 +5,7 @@
 const dgram = require('dgram');
 const meow = require('meow');
 const stun = require('.');
-const { version } = require('../package.json');
+const { version } = require('../package');
 
 const cli = meow(
   `
