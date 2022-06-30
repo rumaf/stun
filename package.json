@@ -30,9 +30,9 @@
   "homepage": "https://github.com/nodertc/stun#readme",
   "devDependencies": {
     "@nodertc/eslint-config": "^0.3.0",
-    "eslint": "^8.15.0",
-    "jest": "^28.1.0",
-    "prettier": "^2.2.1"
+    "eslint": "^8.18.0",
+    "jest": "^28.1.2",
+    "prettier": "^2.7.1"
   },
   "dependencies": {
     "binary-data": "^0.6.0",
@@ -42,7 +42,7 @@
     "ip2buf": "^2.0.0",
     "is-stun": "^2.0.0",
     "meow": "^9.0.0",
-    "parse-url": "^5.0.2",
+    "parse-url": "^7.0.2",
     "turbo-crc32": "^1.0.1",
     "universalify": "^2.0.0"
   },
