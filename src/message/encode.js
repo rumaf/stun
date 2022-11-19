@@ -1,7 +1,7 @@
 'use strict';
 
 const binary = require('binary-data');
-const { StunMessagePacket, StunAttributePacket } = require('lib/protocol');
+const { StunMessagePacket, StunAttributePacket } = require('../lib/protocol');
 
 const kCookie = Symbol.for('kCookie');
 const kAttributes = Symbol.for('kAttributes');
@@ -21,7 +21,7 @@ function encode(message) {
   const ostream = binary.createEncode();
   const attrlist = message[kAttributes];
 
-  const attributes = attrlist.map(attribute => ({
+  const attributes = attrlist.map((attribute) => ({
     type: attribute.type,
     value: attribute.toBuffer(),
   }));

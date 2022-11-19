@@ -2,10 +2,10 @@
 
 const Emitter = require('events');
 const isStun = require('is-stun');
-const StunRequest = require('message/request');
-const decode = require('message/decode');
-const constants = require('lib/constants');
-const { StunMessageError, StunResponseError } = require('lib/errors');
+const StunRequest = require('../message/request');
+const decode = require('../message/decode');
+const constants = require('../lib/constants');
+const { StunMessageError, StunResponseError } = require('../lib/errors');
 
 const {
   eventNames: {

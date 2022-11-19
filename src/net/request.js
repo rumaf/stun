@@ -3,11 +3,11 @@
 const parseUrl = require('parse-url');
 const debug = require('debug')('stun:request');
 const { fromCallback } = require('universalify');
-const StunServer = require('net/dgram-server');
-const StunRequest = require('message/request');
-const { messageType, eventNames } = require('lib/constants');
-const { createServer } = require('net/create-server');
-const { createMessage } = require('lib/create-message');
+const StunServer = require('../net/dgram-server');
+const StunRequest = require('../message/request');
+const { messageType, eventNames } = require('../lib/constants');
+const { createServer } = require('../net/create-server');
+const { createMessage } = require('../lib/create-message');
 
 module.exports = {
   request: fromCallback(request),

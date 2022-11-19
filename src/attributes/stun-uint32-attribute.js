@@ -4,8 +4,8 @@ const {
   encode,
   types: { uint32be },
 } = require('binary-data');
-const constants = require('lib/constants');
-const StunAttribute = require('attributes/stun-attribute');
+const constants = require('../lib/constants');
+const StunAttribute = require('./stun-attribute');
 
 const MAX_UINT32 = -1 >>> 0; // eslint-disable-line no-bitwise
 

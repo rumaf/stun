@@ -3,7 +3,7 @@
 // This file contains various constants of the STUN protocol, as specified
 // in RFC 5389, and its descendants.
 
-const { createMessageType } = require('lib/util');
+const { createMessageType } = require('./util');
 
 // These are the classes for STUN message types defined in RFC 5389.
 const classType = {

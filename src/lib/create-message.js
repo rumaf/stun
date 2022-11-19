@@ -1,8 +1,8 @@
 'use strict';
 
 const crypto = require('crypto');
-const defaultConstants = require('lib/constants');
-const StunRequest = require('message/request');
+const defaultConstants = require('./constants');
+const StunRequest = require('../message/request');
 
 module.exports = {
   createTransaction,

@@ -1,7 +1,7 @@
 'use strict';
 
-const StunMessage = require('message/message');
-const { attributeType } = require('lib/constants');
+const StunMessage = require('./message');
+const { attributeType } = require('../lib/constants');
 
 /**
  * Get a value of an attribute of the message.

@@ -1,9 +1,9 @@
 'use strict';
 
 const binary = require('binary-data');
-const StunResponse = require('message/response');
-const { StunMessagePacket } = require('lib/protocol');
-const attributes = require('lib/attributes');
+const StunResponse = require('./response');
+const { StunMessagePacket } = require('../lib/protocol');
+const attributes = require('../lib/attributes');
 
 const kMessageType = Symbol.for('kMessageType');
 const kTransactionId = Symbol.for('kTransctionId');
@@ -26,7 +26,9 @@ function decode(message) {
   response[kTransactionId] = packet.header.transaction;
   response[kCookie] = packet.header.cookie;
 
-  response[kAttributes] = packet.attributes.map(attribute => attributes.parse(attribute, response));
+  response[kAttributes] = packet.attributes.map((attribute) =>
+    attributes.parse(attribute, response)
+  );
 
   return response;
 }

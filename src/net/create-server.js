@@ -1,7 +1,7 @@
 'use strict';
 
 const dgram = require('dgram');
-const StunServer = require('net/dgram-server');
+const StunServer = require('./dgram-server');
 
 module.exports = {
   createServer,
@@ -47,7 +47,7 @@ function createDgramServer(options = {}) {
   const server = new StunServer(socket);
 
   if (!isExternalSocket) {
-    socket.on('error', error => server.emit('error', error));
+    socket.on('error', (error) => server.emit('error', error));
     server.once('close', () => socket.close());
   }
 

@@ -9,8 +9,8 @@ const {
 } = require('binary-data');
 const ip = require('ip');
 const { pton4, pton6 } = require('ip2buf');
-const constants = require('lib/constants');
-const StunAttribute = require('attributes/stun-attribute');
+const constants = require('../lib/constants');
+const StunAttribute = require('./stun-attribute');
 
 const STUN_ADDRESS_4 = 1;
 const STUN_ADDRESS_6 = 2;
@@ -162,5 +162,5 @@ module.exports = class StunAddressAttribute extends StunAttribute {
  */
 function isPort(port) {
   // eslint-disable-next-line no-bitwise
-  return Number.isInteger(port) && (port > 0 && port < 2 << 15);
+  return Number.isInteger(port) && port > 0 && port < 2 << 15;
 }

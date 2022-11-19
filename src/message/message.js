@@ -1,6 +1,6 @@
 'use strict';
 
-const constants = require('lib/constants');
+const constants = require('../lib/constants');
 
 const { kStunTransactionIdLength } = constants;
 
@@ -69,7 +69,7 @@ module.exports = class StunMessage {
     /** @type {StunAttribute[]} */
     const attributes = this[kAttributes];
 
-    return attributes.find(attribute => attribute.type === type);
+    return attributes.find((attribute) => attribute.type === type);
   }
 
   /**

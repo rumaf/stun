@@ -8,10 +8,10 @@ const {
   encodingLength,
   types: { array },
 } = require('binary-data');
-const StunMessage = require('message/message');
-const constants = require('lib/constants');
-const attributes = require('lib/attributes');
-const { StunMessagePacket, StunAttributePacket } = require('lib/protocol');
+const StunMessage = require('./message');
+const constants = require('../lib/constants');
+const attributes = require('../lib/attributes');
+const { StunMessagePacket, StunAttributePacket } = require('../lib/protocol');
 
 const {
   attributeType,
@@ -31,10 +31,10 @@ const kAttributes = Symbol.for('kAttributes');
 
 const EMPTY_MESSAGE_INTEGRITY = Buffer.alloc(kStunMessageIntegritySize, 0);
 
-const toUInt32 = x => x >>> 0; // eslint-disable-line no-bitwise
+const toUInt32 = (x) => x >>> 0; // eslint-disable-line no-bitwise
 const MAX_INT32 = 0x7fffffff;
 const MIN_INT32 = -2147483648;
-const isINT32 = v => v <= MAX_INT32 && v >= MIN_INT32;
+const isINT32 = (v) => v <= MAX_INT32 && v >= MIN_INT32;
 
 /**
  * This class implements outgoing STUN messages.
@@ -93,7 +93,7 @@ class StunRequest extends StunMessage {
     /** @type {StunAttribute[]} */
     const attribute_ = this[kAttributes];
 
-    const index = attribute_.findIndex(attribute => attribute.type === type);
+    const index = attribute_.findIndex((attribute) => attribute.type === type);
 
     switch (index) {
       case -1:
@@ -350,7 +350,7 @@ class StunRequest extends StunMessage {
     /** @type {StunAttribute[]} */
     const attrmap = this[kAttributes];
 
-    const attributes_ = attrmap.map(attribute => ({
+    const attributes_ = attrmap.map((attribute) => ({
       type: attribute.type,
       value: attribute.toBuffer(),
     }));

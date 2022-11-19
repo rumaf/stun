@@ -2,15 +2,15 @@
 
 // This file implements utility functions for working with atributes.
 
-const StunAddressAttribute = require('attributes/stun-address-attribute');
-const StunXorAddressAttribute = require('attributes/stun-xor-address-attribute');
-const StunUInt32Attribute = require('attributes/stun-uint32-attribute');
-const StunByteStringAttribute = require('attributes/stun-bytestring-attribute');
-const StunErrorCodeAttribute = require('attributes/stun-error-code-attribute');
-const StunUInt16ListAttribute = require('attributes/stun-uint16list-attribute');
-const StunUnknownAttribute = require('attributes/stun-unknown-attribute');
-const StunUInt16Attribute = require('attributes/stun-uint16-attribute');
-const { attributeType, attributeValueType } = require('lib/constants');
+const StunAddressAttribute = require('../attributes/stun-address-attribute');
+const StunXorAddressAttribute = require('../attributes/stun-xor-address-attribute');
+const StunUInt32Attribute = require('../attributes/stun-uint32-attribute');
+const StunByteStringAttribute = require('../attributes/stun-bytestring-attribute');
+const StunErrorCodeAttribute = require('../attributes/stun-error-code-attribute');
+const StunUInt16ListAttribute = require('../attributes/stun-uint16list-attribute');
+const StunUnknownAttribute = require('../attributes/stun-unknown-attribute');
+const StunUInt16Attribute = require('../attributes/stun-uint16-attribute');
+const { attributeType, attributeValueType } = require('./constants');
 
 module.exports = {
   create,

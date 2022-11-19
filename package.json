@@ -1,11 +1,11 @@
 {
   "name": "stun",
-  "version": "2.1.1",
+  "version": "2.1.12",
   "description": "Session Traversal Utilities for NAT (STUN) client and server.",
   "main": "src/index.js",
   "scripts": {
     "lint": "npx eslint .",
-    "cover": "npx jest --coverage --forceExit",
+    "cover": "npx jest --coverage",
     "test": "npm run lint && npx jest",
     "test-ci": "npm run lint && npm run cover"
   },
@@ -52,8 +52,7 @@
   "jest": {
     "modulePaths": [
       "<rootDir>",
-      "<rootDir>/src",
-      "<rootDir>/src/node_modules"
+      "<rootDir>/src"
     ],
     "testMatch": [
       "**/test/**/*.js"
@@ -65,7 +64,7 @@
     "collectCoverageFrom": [
       "**/src/*.js",
       "!**/src/cli.js",
-      "**/src/node_modules/**/*.js"
+      "**/src/**/*.js"
     ],
     "coveragePathIgnorePatterns": [
       "<rootDir>/node_modules/"
@@ -93,8 +92,7 @@
             "node": {
               "moduleDirectory": [
                 "node_modules",
-                "src",
-                "src/node_modules"
+                "src"
               ]
             }
           }

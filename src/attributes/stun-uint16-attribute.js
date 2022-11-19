@@ -4,8 +4,8 @@ const {
   encode,
   types: { uint16be },
 } = require('binary-data');
-const constants = require('lib/constants');
-const StunAttribute = require('attributes/stun-attribute');
+const constants = require('../lib/constants');
+const StunAttribute = require('./stun-attribute');
 
 const MAX_UINT16 = 0xffff;
 

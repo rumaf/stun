@@ -1,7 +1,7 @@
 'use strict';
 
-const constants = require('lib/constants');
-const StunByteStringAttribute = require('attributes/stun-bytestring-attribute');
+const constants = require('../lib/constants');
+const StunByteStringAttribute = require('./stun-bytestring-attribute');
 
 /**
  * This class implements unknown STUN attribute.

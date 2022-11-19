@@ -2,8 +2,8 @@
 
 const crypto = require('crypto');
 const crc32 = require('turbo-crc32/crc32');
-const constants = require('lib/constants');
-const encode = require('message/encode');
+const constants = require('./constants');
+const encode = require('../message/encode');
 
 const { FINGERPRINT, MESSAGE_INTEGRITY } = constants.attributeType;
 const { kStunFingerprintXorValue, kStunFingerprintLength, kStunMessageIntegrityLength } = constants;
@@ -13,7 +13,7 @@ module.exports = {
   validateMessageIntegrity,
 };
 
-const toUInt32 = x => x >>> 0; // eslint-disable-line no-bitwise
+const toUInt32 = (x) => x >>> 0; // eslint-disable-line no-bitwise
 
 /**
  * Verifies that a given buffer is STUN by checking for a correct FINGERPRINT.

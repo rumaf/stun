@@ -5,8 +5,8 @@ const {
   decode,
   types: { uint16be, array },
 } = require('binary-data');
-const constants = require('lib/constants');
-const StunAttribute = require('attributes/stun-attribute');
+const constants = require('../lib/constants');
+const StunAttribute = require('./stun-attribute');
 
 const kAttributeTypes = Symbol('kAttributeTypes');
 
@@ -34,7 +34,7 @@ module.exports = class StunUInt16ListAttribute extends StunAttribute {
 
     const packet = new StunUInt16ListAttribute(type);
 
-    decode(message, schema).map(value => packet.addType(value));
+    decode(message, schema).map((value) => packet.addType(value));
     return packet;
   }
 

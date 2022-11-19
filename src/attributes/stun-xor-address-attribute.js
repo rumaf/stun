@@ -4,8 +4,8 @@ const net = require('net');
 const ip = require('ip');
 const xor = require('buffer-xor');
 const { pton4, pton6 } = require('ip2buf');
-const constants = require('lib/constants');
-const StunAddressAttribute = require('attributes/stun-address-attribute');
+const constants = require('../lib/constants');
+const StunAddressAttribute = require('./stun-address-attribute');
 
 const kOwner = Symbol('kOwner');
 

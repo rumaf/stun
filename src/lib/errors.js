@@ -1,6 +1,6 @@
 'use strict';
 
-const { attributeType } = require('lib/constants');
+const { attributeType } = require('./constants');
 
 const kPacket = Symbol('packet');
 const kSender = Symbol('sender');

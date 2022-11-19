@@ -1,16 +1,16 @@
 'use strict';
 
-const StunRequest = require('message/request');
-const StunResponse = require('message/response');
-const StunServer = require('net/dgram-server');
-const defaultConstants = require('lib/constants');
-const { validateFingerprint, validateMessageIntegrity } = require('lib/validate');
-const { StunError, StunMessageError, StunResponseError } = require('lib/errors');
-const { request } = require('net/request');
-const { createServer } = require('net/create-server');
-const { createMessage, createTransaction } = require('lib/create-message');
-const encode = require('message/encode');
-const decode = require('message/decode');
+const StunRequest = require('./message/request');
+const StunResponse = require('./message/response');
+const StunServer = require('./net/dgram-server');
+const defaultConstants = require('./lib/constants');
+const { validateFingerprint, validateMessageIntegrity } = require('./lib/validate');
+const { StunError, StunMessageError, StunResponseError } = require('./lib/errors');
+const { request } = require('./net/request');
+const { createServer } = require('./net/create-server');
+const { createMessage, createTransaction } = require('./lib/create-message');
+const encode = require('./message/encode');
+const decode = require('./message/decode');
 
 const constants = {};
 
