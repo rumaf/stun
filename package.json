@@ -1,6 +1,6 @@
 {
   "name": "stun",
-  "version": "2.1.12",
+  "version": "2.1.13",
   "description": "Session Traversal Utilities for NAT (STUN) client and server.",
   "main": "src/index.js",
   "scripts": {
@@ -41,7 +41,7 @@
     "ip": "^1.1.8",
     "ip2buf": "^2.0.0",
     "is-stun": "^2.0.0",
-    "meow": "^9.0.0",
+    "minimist": "^1.2.7",
     "parse-url": "^8.1.0",
     "turbo-crc32": "^1.0.1",
     "universalify": "^2.0.0"

@@ -3,29 +3,30 @@
 'use strict';
 
 const dgram = require('dgram');
-const meow = require('meow');
+const minimist = require('minimist');
 const stun = require('.');
 const { version } = require('../package');
 
-const cli = meow(
-  `
+const options = minimist(process.argv.slice(2), {
+  string: ['port'],
+  boolean: ['help'],
+  alias: { port: ['p'], help: ['h'] },
+});
+
+if (options.help) {
+  process.stdout.write(`
+  Session Traversal Utilities for NAT (STUN) client and server.
+
   Usage:
     $ stun [-p <port>]
 
   Options:
     --port, -p      Specified a port on which the STUN server are bound
                     Default port is 3478 defined in RFC5389.
-`,
-  {
-    flags: {
-      port: {
-        type: 'string',
-        alias: 'p',
-        default: '3478',
-      },
-    },
-  }
-);
+  `);
+
+  process.exit(0); // eslint-disable-line no-process-exit
+}
 
 /**
  * Check if argument is valid port.
@@ -34,7 +35,7 @@ const cli = meow(
  */
 const isLegalPort = (port) => Number.isInteger(port) && port > 0 && port <= 0xffff;
 
-const cliPort = Number(cli.flags.port);
+const cliPort = Number(options.port);
 
 const socket = dgram.createSocket('udp4');
 const server = stun.createServer(socket);
