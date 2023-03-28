@@ -146,19 +146,19 @@ The type of socket. Must be 'udp4' or 'udp6'. Required.
 
 - `options.socket: dgram.Socket`
 
-Creates a `StunServer` object of the specified type. The `type` argument should be 'udp' at the moment. An optional `socket` argument should be instance of `dgram.Socket`. If `socket` is not specifed, the `dgram.Socket` will be created with `udp4` type and will bound to the "all interfaces" address on a random port.
+Creates a `StunServer` object of the specified type. The `type` argument should be 'udp' at the moment. An optional `socket` argument should be instance of `dgram.Socket`. If `socket` is not specified, the `dgram.Socket` will be created with `udp4` type and will bound to the "all interfaces" address on a random port.
 
 <a name="validate-fingerprint" />
 
 #### `validateFingerprint(message: StunMessage): bool`
 
-Check a `FINGERPRINT` attribute if it is specifed.
+Check a `FINGERPRINT` attribute if it is specified.
 
 <a name="validate-message-integrity" />
 
 #### `validateMessageIntegrity(message: StunMessage, key: string): bool`
 
-Check a `MESSAGE_INTEGRITY` attribute if it is specifed.
+Check a `MESSAGE_INTEGRITY` attribute if it is specified.
 
 ```js
 stunServer.on("bindingResponse", (msg) => {

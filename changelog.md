@@ -10,6 +10,6 @@ All notable changes to the "stun" package will be documented in this file.
 
 - Add `request()` method to simplify client-side requests. Follow the `STUN` specification.
 - All STUN-related errors inherit `StunError`. See `StunMessageError` and `StunResponseError`.
-- A big `StunMessage` class was replased by `StunRequest` and `StunResponse`. They are represent outgoing and incoming messages. The main difference is that you cannot change incoming message.
+- `StunMessage` class was replaced by `StunRequest` and `StunResponse`. They represent outgoing and incoming messages. The main difference is that you cannot change incoming message.
 - Added simple CLI, use `npx stun` or `npx stun -p 3478`.
 - Another incompatible API changes.
