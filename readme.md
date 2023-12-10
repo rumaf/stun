@@ -1,6 +1,6 @@
 # stun
 
-[![Build Status](https://github.com/rumaf/stun/actions/workflows/ci.yml/badge.svg)](https://github.com/rumaf/stun/actions/workflows/ci.yml)
+[![Build Status](https://github.com/msimerson/stun/actions/workflows/ci.yml/badge.svg)](https://github.com/msimerson/stun/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/stun.svg)](https://npmjs.org/package/stun)
 [![node](https://img.shields.io/node/v/stun.svg)](https://npmjs.org/package/stun)
 [![license](https://img.shields.io/npm/l/stun.svg)](https://npmjs.org/package/stun)
