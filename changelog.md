@@ -3,6 +3,11 @@
 All notable changes to the "stun" package will be documented in this file.
 
 
+## [2.1.17] - 2023-12-16
+
+- dep(eslint): update to 8.55.0
+- dep(ip): update to 2.0.0
+
 ## [2.1.16] - 2023-12-09
 
 - dep(meow): replace with minimist
