@@ -1,8 +1,11 @@
 'use strict';
 
-const constants = require('lib/constants');
-const StunAttribute = require('attributes/stun-attribute');
-const StunRequest = require('message/request');
+const { describe, test } = require('node:test')
+const assert = require('node:assert/strict')
+
+const constants = require('../../src/lib/constants');
+const StunAttribute = require('../../src/attributes/stun-attribute');
+const StunRequest = require('../../src/message/request');
 
 const { attributeValueType, attributeType, messageType, errorReason } = constants;
 
@@ -27,8 +30,8 @@ test('should add FINGERPRINT', () => {
     Buffer.from('a8fbde3bdc5ff7ab1e852a8c2cc6ef651cb74889', 'hex')
   );
 
-  expect(message.addFingerprint()).toBe(true);
-  expect(message.toBuffer()).toEqual(expectedBuffer);
+  assert.equal(message.addFingerprint(), true);
+  assert.deepEqual(message.toBuffer(), expectedBuffer);
 });
 
 test('add MESSAGE-INTEGRITY', () => {
@@ -49,8 +52,8 @@ test('add MESSAGE-INTEGRITY', () => {
 
   const password = '6Gzr+PH5Krjg0VqBa81nE7n6';
 
-  expect(message.addMessageIntegrity(password)).toBe(true);
-  expect(message.toBuffer()).toEqual(expectedBuffer);
+  assert.equal(message.addMessageIntegrity(password), true);
+  assert.deepEqual(message.toBuffer(), expectedBuffer);
 });
 
 test('FINGERPRINT should be uint32', () => {
@@ -60,7 +63,7 @@ test('FINGERPRINT should be uint32', () => {
   message.setType(messageType.BINDING_RESPONSE);
   message.addAttribute(SOFTWARE, '123456789');
 
-  expect(message.addFingerprint()).toBe(true);
+  assert.equal(message.addFingerprint(), true);
 });
 
 test('iterator', () => {
@@ -74,26 +77,26 @@ test('iterator', () => {
   message.addAttribute(XOR_MAPPED_ADDRESS, '192.168.1.35', 60689);
   message.addFingerprint();
 
-  expect(message.count).toBe(3);
+  assert.equal(message.count, 3);
 
   let count = 0;
   for (const attribute of message) {
     count += 1;
 
-    expect(attribute instanceof StunAttribute).toBe(true);
+    assert.equal(attribute instanceof StunAttribute, true);
 
     switch (count) {
       case 1:
-        expect(attribute.type).toBe(SOFTWARE);
+        assert.equal(attribute.type, SOFTWARE);
         break;
       case 2:
-        expect(attribute.type).toBe(XOR_MAPPED_ADDRESS);
+        assert.equal(attribute.type, XOR_MAPPED_ADDRESS);
         break;
       case 3:
-        expect(attribute.type).toBe(FINGERPRINT);
+        assert.equal(attribute.type, FINGERPRINT);
         break;
       default:
-        expect(count).toBe(3);
+        assert.equal(count, 3);
         break;
     }
   }
@@ -106,9 +109,9 @@ test('add address', () => {
   message.addAddress('127.0.0.1', 1516);
 
   const attributes = Array.from(message);
-  expect(attributes.length).toEqual(1);
-  expect(attributes[0].valueType).toEqual(attributeValueType.ADDRESS);
-  expect(attributes[0].value).toEqual({
+  assert.equal(attributes.length, 1);
+  assert.equal(attributes[0].valueType, attributeValueType.ADDRESS);
+  assert.deepEqual(attributes[0].value, {
     address: '127.0.0.1',
     port: 1516,
     family: 'IPv4',
@@ -122,9 +125,9 @@ test('add xor address', () => {
   message.addXorAddress('127.0.0.1', 1516);
 
   const attributes = Array.from(message);
-  expect(attributes.length).toEqual(1);
-  expect(attributes[0].valueType).toEqual(attributeValueType.XOR_ADDRESS);
-  expect(attributes[0].value).toEqual({
+  assert.equal(attributes.length, 1);
+  assert.equal(attributes[0].valueType, attributeValueType.XOR_ADDRESS);
+  assert.deepEqual(attributes[0].value, {
     address: '127.0.0.1',
     port: 1516,
     family: 'IPv4',
@@ -138,9 +141,9 @@ test('add alternate server  ', () => {
   message.addAlternateServer('127.0.0.1', 1516);
 
   const attributes = Array.from(message);
-  expect(attributes.length).toEqual(1);
-  expect(attributes[0].type).toEqual(attributeType.ALTERNATE_SERVER);
-  expect(attributes[0].value).toEqual({
+  assert.equal(attributes.length, 1);
+  assert.equal(attributes[0].type, attributeType.ALTERNATE_SERVER);
+  assert.deepEqual(attributes[0].value, {
     address: '127.0.0.1',
     port: 1516,
     family: 'IPv4',
@@ -154,20 +157,21 @@ test('add username', () => {
   message.addUsername('stun/1.2.3');
 
   const attributes = Array.from(message);
-  expect(attributes.length).toEqual(1);
-  expect(attributes[0].type).toEqual(attributeType.USERNAME);
+  assert.equal(attributes.length, 1);
+  assert.equal(attributes[0].type, attributeType.USERNAME);
 });
 
-test('add invalid  username', () => {
+test('add invalid username', () => {
   const message = new StunRequest();
 
   message.setType(messageType.BINDING_RESPONSE);
 
-  expect(() => message.addUsername('stun/1.2.3'.repeat(52))).toThrowError(
+  assert.throws(
+    () => message.addUsername('stun/1.2.3'.repeat(52)),
     /Username should be less than 513 bytes/i
   );
 
-  expect(message.count).toEqual(0);
+  assert.equal(message.count, 0);
 });
 
 test('add software', () => {
@@ -177,8 +181,8 @@ test('add software', () => {
   message.addSoftware('stun/1.2.3');
 
   const attributes = Array.from(message);
-  expect(attributes.length).toEqual(1);
-  expect(attributes[0].type).toEqual(attributeType.SOFTWARE);
+  assert.equal(attributes.length, 1);
+  assert.equal(attributes[0].type, attributeType.SOFTWARE);
 });
 
 test('add realm', () => {
@@ -188,8 +192,8 @@ test('add realm', () => {
   message.addRealm('stun/1.2.3');
 
   const attributes = Array.from(message);
-  expect(attributes.length).toEqual(1);
-  expect(attributes[0].type).toEqual(attributeType.REALM);
+  assert.equal(attributes.length, 1);
+  assert.equal(attributes[0].type, attributeType.REALM);
 });
 
 test('add nonce', () => {
@@ -199,16 +203,19 @@ test('add nonce', () => {
   message.addNonce('stun/1.2.3');
 
   const attributes = Array.from(message);
-  expect(attributes.length).toEqual(1);
-  expect(attributes[0].type).toEqual(attributeType.NONCE);
+  assert.equal(attributes.length, 1);
+  assert.equal(attributes[0].type, attributeType.NONCE);
 });
 
 test('add invalid nonce', () => {
   const message = new StunRequest();
 
   message.setType(messageType.BINDING_RESPONSE);
-  expect(() => message.addNonce('stun/1.2.3'.repeat(13))).toThrowError(/less than 128 characters/i);
-  expect(message.count).toEqual(0);
+  assert.throws(
+    () => message.addNonce('stun/1.2.3'.repeat(13)),
+    /less than 128 characters/i
+  );
+  assert.equal(message.count, 0);
 });
 
 describe('removeAttribute', () => {
@@ -216,7 +223,7 @@ describe('removeAttribute', () => {
     const message = new StunRequest();
 
     const attribute = message.removeAttribute(attributeType.MAPPED_ADDRESS);
-    expect(attribute).toBeUndefined();
+    assert.equal(attribute, undefined);
   });
 
   test('from start', () => {
@@ -226,12 +233,12 @@ describe('removeAttribute', () => {
     message.addXorAddress('127.0.0.1', 1516);
 
     const removedAttribute = message.removeAttribute(attributeType.MAPPED_ADDRESS);
-    expect(removedAttribute).not.toBeUndefined();
-    expect(removedAttribute.type).toEqual(attributeType.MAPPED_ADDRESS);
+    assert.notEqual(removedAttribute, undefined);
+    assert.equal(removedAttribute.type, attributeType.MAPPED_ADDRESS);
 
     const attributes = Array.from(message);
-    expect(attributes.length).toEqual(1);
-    expect(attributes[0].valueType).toEqual(attributeValueType.XOR_ADDRESS);
+    assert.equal(attributes.length, 1);
+    assert.equal(attributes[0].valueType, attributeValueType.XOR_ADDRESS);
   });
 
   test('from end', () => {
@@ -241,12 +248,12 @@ describe('removeAttribute', () => {
     message.addXorAddress('127.0.0.1', 1516);
 
     const removedAttribute = message.removeAttribute(attributeType.XOR_MAPPED_ADDRESS);
-    expect(removedAttribute).not.toBeUndefined();
-    expect(removedAttribute.type).toEqual(attributeType.XOR_MAPPED_ADDRESS);
+    assert.notEqual(removedAttribute, undefined);
+    assert.equal(removedAttribute.type, attributeType.XOR_MAPPED_ADDRESS);
 
     const attributes = Array.from(message);
-    expect(attributes.length).toEqual(1);
-    expect(attributes[0].valueType).toEqual(attributeValueType.ADDRESS);
+    assert.equal(attributes.length, 1);
+    assert.equal(attributes[0].valueType, attributeValueType.ADDRESS);
   });
 
   test('from the middle', () => {
@@ -257,13 +264,13 @@ describe('removeAttribute', () => {
     message.addXorAddress('127.0.0.1', 1516);
 
     const removedAttribute = message.removeAttribute(attributeType.MAPPED_ADDRESS);
-    expect(removedAttribute).not.toBeUndefined();
-    expect(removedAttribute.type).toEqual(attributeType.MAPPED_ADDRESS);
+    assert.notEqual(removedAttribute, undefined);
+    assert.equal(removedAttribute.type, attributeType.MAPPED_ADDRESS);
 
     const attributes = Array.from(message);
-    expect(attributes.length).toEqual(2);
-    expect(attributes[0].type).toEqual(attributeType.SOFTWARE);
-    expect(attributes[1].type).toEqual(attributeType.XOR_MAPPED_ADDRESS);
+    assert.equal(attributes.length, 2);
+    assert.equal(attributes[0].type, attributeType.SOFTWARE);
+    assert.equal(attributes[1].type, attributeType.XOR_MAPPED_ADDRESS);
   });
 });
 
@@ -275,18 +282,19 @@ describe('add error', () => {
     message.addError(300, 'hello world');
 
     const attributes = Array.from(message);
-    expect(attributes.length).toEqual(1);
-    expect(attributes[0].type).toEqual(attributeType.ERROR_CODE);
-    expect(attributes[0].reason).toEqual('hello world');
-    expect(attributes[0].code).toEqual(300);
+    assert.equal(attributes.length, 1);
+    assert.equal(attributes[0].type, attributeType.ERROR_CODE);
+    assert.equal(attributes[0].reason, 'hello world');
+    assert.equal(attributes[0].code, 300);
   });
 
   test('should be error type message', () => {
     const message = new StunRequest();
 
     message.setType(messageType.BINDING_RESPONSE);
-    expect(() => message.addError(300, 'hello world')).toThrowError(
-      'The attribute should be in ERROR_RESPONSE messages'
+    assert.throws(
+      () => message.addError(300, 'hello world'),
+      /The attribute should be in ERROR_RESPONSE messages/
     );
   });
 
@@ -295,8 +303,8 @@ describe('add error', () => {
 
     message.setType(messageType.BINDING_ERROR_RESPONSE);
 
-    expect(() => message.addError(200)).toThrowError(/Error code should between 300 - 699/i);
-    expect(() => message.addError(700)).toThrowError(/Error code should between 300 - 699/i);
+    assert.throws(() => message.addError(200), /Error code should between 300 - 699/i);
+    assert.throws(() => message.addError(700), /Error code should between 300 - 699/i);
   });
 
   test('should set default reason', () => {
@@ -306,10 +314,10 @@ describe('add error', () => {
     message.addError(300);
 
     const attributes = Array.from(message);
-    expect(attributes.length).toEqual(1);
-    expect(attributes[0].type).toEqual(attributeType.ERROR_CODE);
-    expect(attributes[0].reason).toEqual(errorReason.TRY_ALTERNATE);
-    expect(attributes[0].code).toEqual(300);
+    assert.equal(attributes.length, 1);
+    assert.equal(attributes[0].type, attributeType.ERROR_CODE);
+    assert.equal(attributes[0].reason, errorReason.TRY_ALTERNATE);
+    assert.equal(attributes[0].code, 300);
   });
 });
 
@@ -320,9 +328,9 @@ test('add UNKNOWN-ATTRIBUTES', () => {
   message.addUnknownAttributes([1, 2, 3]);
 
   const attributes = Array.from(message);
-  expect(attributes.length).toEqual(1);
-  expect(attributes[0].type).toEqual(attributeType.UNKNOWN_ATTRIBUTES);
-  expect(attributes[0].value).toEqual([1, 2, 3]);
+  assert.equal(attributes.length, 1);
+  assert.equal(attributes[0].type, attributeType.UNKNOWN_ATTRIBUTES);
+  assert.deepEqual(attributes[0].value, [1, 2, 3]);
 });
 
 test('add PRIORITY', () => {
@@ -332,14 +340,14 @@ test('add PRIORITY', () => {
   message.addPriority(123);
 
   const attributes = Array.from(message);
-  expect(attributes.length).toEqual(1);
-  expect(attributes[0].type).toEqual(attributeType.PRIORITY);
-  expect(attributes[0].value).toEqual(123);
+  assert.equal(attributes.length, 1);
+  assert.equal(attributes[0].type, attributeType.PRIORITY);
+  assert.equal(attributes[0].value, 123);
 
-  expect(() => message.addPriority(1.23)).toThrow(/The argument should be 32-bit integer/i);
-  expect(() => message.addPriority(Number.MAX_SAFE_INTEGER)).toThrow(
-    /The argument should be 32-bit integer/i
-  );
+  assert.throws(
+    () => message.addPriority(1.23), /The argument should be 32-bit integer/i);
+  assert.throws(
+    () => message.addPriority(Number.MAX_SAFE_INTEGER), /The argument should be 32-bit integer/i);
 });
 
 test('add USE-CANDIDATE', () => {
@@ -348,8 +356,8 @@ test('add USE-CANDIDATE', () => {
   message.addUseCandidate();
 
   const attributes = Array.from(message);
-  expect(attributes.length).toEqual(1);
-  expect(attributes[0].type).toEqual(attributeType.USE_CANDIDATE);
+  assert.equal(attributes.length, 1);
+  assert.equal(attributes[0].type, attributeType.USE_CANDIDATE);
 });
 
 test('add ICE-CONTROLLED', () => {
@@ -362,17 +370,17 @@ test('add ICE-CONTROLLED', () => {
   message.addIceControlled(tiebreaker);
 
   const attributes = Array.from(message);
-  expect(attributes.length).toEqual(1);
-  expect(attributes[0].type).toEqual(attributeType.ICE_CONTROLLED);
-  expect(attributes[0].value).toEqual(tiebreaker);
+  assert.equal(attributes.length, 1);
+  assert.equal(attributes[0].type, attributeType.ICE_CONTROLLED);
+  assert.equal(attributes[0].value, tiebreaker);
 
-  expect(() => message.addIceControlled(123)).toThrow(/shoud be a 64-bit unsigned integer/i);
-  expect(() => message.addIceControlled(invalidTiebreaker)).toThrow(
+  assert.throws(() => message.addIceControlled(123), /shoud be a 64-bit unsigned integer/i);
+  assert.throws(() => message.addIceControlled(invalidTiebreaker), 
     /shoud be a 64-bit unsigned integer/i
   );
 
   message.setType(constants.messageType.BINDING_ERROR_RESPONSE);
-  expect(() => message.addIceControlled(tiebreaker)).toThrow(
+  assert.throws(() => message.addIceControlled(tiebreaker), 
     /should present in a Binding request/i
   );
 });
@@ -387,17 +395,17 @@ test('add ICE-CONTROLLING', () => {
   message.addIceControlling(tiebreaker);
 
   const attributes = Array.from(message);
-  expect(attributes.length).toEqual(1);
-  expect(attributes[0].type).toEqual(attributeType.ICE_CONTROLLING);
-  expect(attributes[0].value).toEqual(tiebreaker);
+  assert.equal(attributes.length, 1);
+  assert.equal(attributes[0].type, attributeType.ICE_CONTROLLING);
+  assert.equal(attributes[0].value, tiebreaker);
 
-  expect(() => message.addIceControlling(123)).toThrow(/shoud be a 64-bit unsigned integer/i);
-  expect(() => message.addIceControlling(invalidTiebreaker)).toThrow(
+  assert.throws(() => message.addIceControlling(123), /shoud be a 64-bit unsigned integer/i);
+  assert.throws(() => message.addIceControlling(invalidTiebreaker), 
     /shoud be a 64-bit unsigned integer/i
   );
 
   message.setType(constants.messageType.BINDING_ERROR_RESPONSE);
-  expect(() => message.addIceControlling(tiebreaker)).toThrow(
+  assert.throws(() => message.addIceControlling(tiebreaker), 
     /should present in a Binding request/i
   );
 });

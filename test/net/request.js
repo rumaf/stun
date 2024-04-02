@@ -1,18 +1,20 @@
 'use strict';
 
-const { request } = require('net/request');
-const StunResponse = require('message/response');
-const { createMessage } = require('lib/create-message');
-const { messageType } = require('lib/constants');
-const StunServer = require('net/dgram-server');
-const { createServer } = require('net/create-server');
+const { describe, test } = require('node:test')
+const assert = require('node:assert/strict')
 
-test('should work', (done) => {
-  expect.assertions(2);
+const { request } = require('../../src/net/request');
+const StunResponse = require('../../src/message/response');
+const { createMessage } = require('../../src/lib/create-message');
+const { messageType } = require('../../src/lib/constants');
+const StunServer = require('../../src/net/dgram-server');
+const { createServer } = require('../../src/net/create-server');
+
+test('should work', (t, done) => {
 
   request('stun://stun.l.google.com:19302', (error, res) => {
-    expect(error).toBe(null);
-    expect(res).toBeInstanceOf(StunResponse);
+    assert.equal(error, null);
+    assert.equal(true, res instanceof StunResponse);
 
     done();
   });
@@ -20,39 +22,37 @@ test('should work', (done) => {
 
 test('should work as promise', async () => {
   const res = await request('stun://stun.l.google.com:19302');
-  expect(res).toBeInstanceOf(StunResponse);
+  assert.equal(true, res instanceof StunResponse);
 });
 
-test('url normalization should work', (done) => {
-  expect.assertions(2);
+test('url normalization should work', (t, done) => {
 
   request('stun.l.google.com:19302', (error, res) => {
-    expect(error).toBe(null);
-    expect(res).toBeInstanceOf(StunResponse);
+    assert.equal(error, null);
+    assert.equal(true, res instanceof StunResponse);
 
     done();
   });
 });
 
-test('should use provided STUN server', (done) => {
-  expect.assertions(1);
+test('should use provided STUN server', (t, done) => {
 
   const socket = {
-    on: jest.fn(),
-    once: jest.fn(),
-    removeListener: jest.fn(),
+    on: function () {},
+    once: function () {},
+    removeListener: function () {},
   };
   const server = new StunServer(socket);
-  server.send = jest.fn();
+  let called = 0
+  server.send = function () { called++; }
 
   request('stun.l.google.com:19302', { server, retries: 0 }, () => {
-    expect(server.send).toBeCalledTimes(1);
+    assert.equal(called, 1);
     done();
   });
 });
 
-test('should use provided message', (done) => {
-  expect.assertions(2);
+test('should use provided message', (t, done) => {
 
   const server = createServer({ type: 'udp4' });
   const request_ = createMessage(messageType.BINDING_REQUEST);
@@ -64,8 +64,8 @@ test('should use provided message', (done) => {
   };
 
   request('stun.l.google.com:19302', options, (error, res) => {
-    expect(error).toBe(null);
-    expect(res.transactonId).toEqual(request_.transactonId);
+    assert.equal(error, null);
+    assert.equal(res.transactonId, request_.transactonId);
     server.close();
     done();
   });
