@@ -47,7 +47,7 @@
     "universalify": "^2.0.1"
   },
   "engines": {
-    "node": ">=10.0"
+    "node": ">=18.0"
   },
   "jest": {
     "modulePaths": [
