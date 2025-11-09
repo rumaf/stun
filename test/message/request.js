@@ -105,7 +105,7 @@ test('add address', () => {
   message.setType(messageType.BINDING_RESPONSE);
   message.addAddress('127.0.0.1', 1516);
 
-  const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+  const attributes = Array.from(message);
   expect(attributes.length).toEqual(1);
   expect(attributes[0].valueType).toEqual(attributeValueType.ADDRESS);
   expect(attributes[0].value).toEqual({
@@ -121,7 +121,7 @@ test('add xor address', () => {
   message.setType(messageType.BINDING_RESPONSE);
   message.addXorAddress('127.0.0.1', 1516);
 
-  const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+  const attributes = Array.from(message);
   expect(attributes.length).toEqual(1);
   expect(attributes[0].valueType).toEqual(attributeValueType.XOR_ADDRESS);
   expect(attributes[0].value).toEqual({
@@ -137,7 +137,7 @@ test('add alternate server  ', () => {
   message.setType(messageType.BINDING_RESPONSE);
   message.addAlternateServer('127.0.0.1', 1516);
 
-  const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+  const attributes = Array.from(message);
   expect(attributes.length).toEqual(1);
   expect(attributes[0].type).toEqual(attributeType.ALTERNATE_SERVER);
   expect(attributes[0].value).toEqual({
@@ -153,7 +153,7 @@ test('add username', () => {
   message.setType(messageType.BINDING_RESPONSE);
   message.addUsername('stun/1.2.3');
 
-  const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+  const attributes = Array.from(message);
   expect(attributes.length).toEqual(1);
   expect(attributes[0].type).toEqual(attributeType.USERNAME);
 });
@@ -163,7 +163,7 @@ test('add invalid  username', () => {
 
   message.setType(messageType.BINDING_RESPONSE);
 
-  expect(() => message.addUsername('stun/1.2.3'.repeat(52))).toThrowError(
+  expect(() => message.addUsername('stun/1.2.3'.repeat(52))).toThrow(
     /Username should be less than 513 bytes/i
   );
 
@@ -176,7 +176,7 @@ test('add software', () => {
   message.setType(messageType.BINDING_RESPONSE);
   message.addSoftware('stun/1.2.3');
 
-  const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+  const attributes = Array.from(message);
   expect(attributes.length).toEqual(1);
   expect(attributes[0].type).toEqual(attributeType.SOFTWARE);
 });
@@ -187,7 +187,7 @@ test('add realm', () => {
   message.setType(messageType.BINDING_RESPONSE);
   message.addRealm('stun/1.2.3');
 
-  const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+  const attributes = Array.from(message);
   expect(attributes.length).toEqual(1);
   expect(attributes[0].type).toEqual(attributeType.REALM);
 });
@@ -198,7 +198,7 @@ test('add nonce', () => {
   message.setType(messageType.BINDING_RESPONSE);
   message.addNonce('stun/1.2.3');
 
-  const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+  const attributes = Array.from(message);
   expect(attributes.length).toEqual(1);
   expect(attributes[0].type).toEqual(attributeType.NONCE);
 });
@@ -207,7 +207,7 @@ test('add invalid nonce', () => {
   const message = new StunRequest();
 
   message.setType(messageType.BINDING_RESPONSE);
-  expect(() => message.addNonce('stun/1.2.3'.repeat(13))).toThrowError(/less than 128 characters/i);
+  expect(() => message.addNonce('stun/1.2.3'.repeat(13))).toThrow(/less than 128 characters/i);
   expect(message.count).toEqual(0);
 });
 
@@ -229,7 +229,7 @@ describe('removeAttribute', () => {
     expect(removedAttribute).not.toBeUndefined();
     expect(removedAttribute.type).toEqual(attributeType.MAPPED_ADDRESS);
 
-    const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+    const attributes = Array.from(message);
     expect(attributes.length).toEqual(1);
     expect(attributes[0].valueType).toEqual(attributeValueType.XOR_ADDRESS);
   });
@@ -244,7 +244,7 @@ describe('removeAttribute', () => {
     expect(removedAttribute).not.toBeUndefined();
     expect(removedAttribute.type).toEqual(attributeType.XOR_MAPPED_ADDRESS);
 
-    const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+    const attributes = Array.from(message);
     expect(attributes.length).toEqual(1);
     expect(attributes[0].valueType).toEqual(attributeValueType.ADDRESS);
   });
@@ -260,7 +260,7 @@ describe('removeAttribute', () => {
     expect(removedAttribute).not.toBeUndefined();
     expect(removedAttribute.type).toEqual(attributeType.MAPPED_ADDRESS);
 
-    const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+    const attributes = Array.from(message);
     expect(attributes.length).toEqual(2);
     expect(attributes[0].type).toEqual(attributeType.SOFTWARE);
     expect(attributes[1].type).toEqual(attributeType.XOR_MAPPED_ADDRESS);
@@ -274,7 +274,7 @@ describe('add error', () => {
     message.setType(messageType.BINDING_ERROR_RESPONSE);
     message.addError(300, 'hello world');
 
-    const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+    const attributes = Array.from(message);
     expect(attributes.length).toEqual(1);
     expect(attributes[0].type).toEqual(attributeType.ERROR_CODE);
     expect(attributes[0].reason).toEqual('hello world');
@@ -285,7 +285,7 @@ describe('add error', () => {
     const message = new StunRequest();
 
     message.setType(messageType.BINDING_RESPONSE);
-    expect(() => message.addError(300, 'hello world')).toThrowError(
+    expect(() => message.addError(300, 'hello world')).toThrow(
       'The attribute should be in ERROR_RESPONSE messages'
     );
   });
@@ -295,8 +295,8 @@ describe('add error', () => {
 
     message.setType(messageType.BINDING_ERROR_RESPONSE);
 
-    expect(() => message.addError(200)).toThrowError(/Error code should between 300 - 699/i);
-    expect(() => message.addError(700)).toThrowError(/Error code should between 300 - 699/i);
+    expect(() => message.addError(200)).toThrow(/Error code should between 300 - 699/i);
+    expect(() => message.addError(700)).toThrow(/Error code should between 300 - 699/i);
   });
 
   test('should set default reason', () => {
@@ -305,7 +305,7 @@ describe('add error', () => {
     message.setType(messageType.BINDING_ERROR_RESPONSE);
     message.addError(300);
 
-    const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+    const attributes = Array.from(message);
     expect(attributes.length).toEqual(1);
     expect(attributes[0].type).toEqual(attributeType.ERROR_CODE);
     expect(attributes[0].reason).toEqual(errorReason.TRY_ALTERNATE);
@@ -319,7 +319,7 @@ test('add UNKNOWN-ATTRIBUTES', () => {
   message.setType(messageType.BINDING_ERROR_RESPONSE);
   message.addUnknownAttributes([1, 2, 3]);
 
-  const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+  const attributes = Array.from(message);
   expect(attributes.length).toEqual(1);
   expect(attributes[0].type).toEqual(attributeType.UNKNOWN_ATTRIBUTES);
   expect(attributes[0].value).toEqual([1, 2, 3]);
@@ -331,7 +331,7 @@ test('add PRIORITY', () => {
   message.setType(messageType.BINDING_ERROR_RESPONSE);
   message.addPriority(123);
 
-  const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+  const attributes = Array.from(message);
   expect(attributes.length).toEqual(1);
   expect(attributes[0].type).toEqual(attributeType.PRIORITY);
   expect(attributes[0].value).toEqual(123);
@@ -347,7 +347,7 @@ test('add USE-CANDIDATE', () => {
 
   message.addUseCandidate();
 
-  const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+  const attributes = Array.from(message);
   expect(attributes.length).toEqual(1);
   expect(attributes[0].type).toEqual(attributeType.USE_CANDIDATE);
 });
@@ -361,7 +361,7 @@ test('add ICE-CONTROLLED', () => {
   message.setType(constants.messageType.BINDING_REQUEST);
   message.addIceControlled(tiebreaker);
 
-  const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+  const attributes = Array.from(message);
   expect(attributes.length).toEqual(1);
   expect(attributes[0].type).toEqual(attributeType.ICE_CONTROLLED);
   expect(attributes[0].value).toEqual(tiebreaker);
@@ -386,7 +386,7 @@ test('add ICE-CONTROLLING', () => {
   message.setType(constants.messageType.BINDING_REQUEST);
   message.addIceControlling(tiebreaker);
 
-  const attributes = Array.from(message); // eslint-disable-line unicorn/prefer-spread
+  const attributes = Array.from(message);
   expect(attributes.length).toEqual(1);
   expect(attributes[0].type).toEqual(attributeType.ICE_CONTROLLING);
   expect(attributes[0].value).toEqual(tiebreaker);

@@ -13,7 +13,7 @@ module.exports = {
   validateMessageIntegrity,
 };
 
-const toUInt32 = (x) => x >>> 0; // eslint-disable-line no-bitwise
+const toUInt32 = (x) => x >>> 0;  
 
 /**
  * Verifies that a given buffer is STUN by checking for a correct FINGERPRINT.
@@ -34,7 +34,7 @@ function validateFingerprint(message) {
   const crc32buf = encode(message).slice(0, -kStunFingerprintLength);
   const currentCRC32 = fingerprintAttribute.value;
 
-  // eslint-disable-next-line no-bitwise
+   
   return toUInt32(crc32(crc32buf) ^ kStunFingerprintXorValue) === currentCRC32;
 }
 

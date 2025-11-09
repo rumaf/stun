@@ -721,4 +721,4 @@ See above.
 
 ## License
 
-MIT, 2017-2019 (c) Dmitriy Tsvettsikh
+MIT, 2017-2025 (c) Dmitriy Tsvettsikh

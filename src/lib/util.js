@@ -1,6 +1,6 @@
 'use strict';
 
-/* eslint-disable no-bitwise */
+ 
 
 module.exports = {
   createMessageType,

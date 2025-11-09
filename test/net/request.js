@@ -46,7 +46,7 @@ test('should use provided STUN server', (done) => {
   server.send = jest.fn();
 
   request('stun.l.google.com:19302', { server, retries: 0 }, () => {
-    expect(server.send).toBeCalledTimes(1);
+    expect(server.send).toHaveBeenCalledTimes(1);
     done();
   });
 });

@@ -25,7 +25,7 @@ test('do not throw exception on invalid message', () => {
 
   server.process(message, {});
 
-  expect(server.emit).lastCalledWith('error', new StunMessageError(message, {}));
+  expect(server.emit).toHaveBeenLastCalledWith('error', new StunMessageError(message, {}));
 });
 
 test('emit StunResponseError for an error messages', () => {
@@ -39,7 +39,7 @@ test('emit StunResponseError for an error messages', () => {
 
   server.process(message.toBuffer(), {});
 
-  expect(server.emit).lastCalledWith('error', new StunResponseError(message, {}));
+  expect(server.emit).toHaveBeenLastCalledWith('error', new StunResponseError(message, {}));
 });
 
 test('should listen', () => {
@@ -50,15 +50,15 @@ test('should listen', () => {
   server.once = jest.fn();
 
   server.listen(123);
-  expect(sock.bind).toBeCalledWith(123, undefined);
+  expect(sock.bind).toHaveBeenCalledWith(123, undefined);
 
   server.listen(123, 'localhost');
-  expect(sock.bind).toBeCalledWith(123, 'localhost');
+  expect(sock.bind).toHaveBeenCalledWith(123, 'localhost');
 
   const callback = jest.fn();
   server.listen(123, 'localhost', callback);
-  expect(sock.bind).toBeCalledWith(123, 'localhost');
-  expect(server.once).lastCalledWith('listening', callback);
+  expect(sock.bind).toHaveBeenCalledWith(123, 'localhost');
+  expect(server.once).toHaveBeenLastCalledWith('listening', callback);
 });
 
 test('should call callbacks for `listening`', () => {
@@ -71,7 +71,7 @@ test('should call callbacks for `listening`', () => {
   server.listen(123, 'localhost', callback);
 
   server.emit('listening');
-  expect(callback).toBeCalledTimes(1);
+  expect(callback).toHaveBeenCalledTimes(1);
 });
 
 test('should emit `listening` event', () => {
@@ -80,8 +80,8 @@ test('should emit `listening` event', () => {
   server.emit = jest.fn();
 
   sock.emit('listening');
-  expect(server.emit).toBeCalledWith('listening');
+  expect(server.emit).toHaveBeenCalledWith('listening');
 
   sock.emit('listening');
-  expect(server.emit).toBeCalledTimes(1);
+  expect(server.emit).toHaveBeenCalledTimes(1);
 });

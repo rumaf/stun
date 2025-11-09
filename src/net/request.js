@@ -36,8 +36,8 @@ const defaultRetryOptions = {
  */
 function request(url, options = {}, callback) {
   if (typeof options === 'function') {
-    callback = options; // eslint-disable-line no-param-reassign
-    options = {}; // eslint-disable-line no-param-reassign
+    callback = options;  
+    options = {};  
   }
 
   // if no proto, prepend stun://
@@ -56,7 +56,7 @@ function request(url, options = {}, callback) {
 
   if (options.server instanceof StunServer) {
     debug('use external server');
-    server = options.server; // eslint-disable-line prefer-destructuring
+    server = options.server;  
     externalServer = true;
   } else {
     debug('create server');
@@ -66,7 +66,7 @@ function request(url, options = {}, callback) {
 
   if (options.message instanceof StunRequest) {
     debug('use external message');
-    message = options.message; // eslint-disable-line prefer-destructuring
+    message = options.message;  
   } else {
     debug('create BINDING_REQUEST message');
     message = createMessage(messageType.BINDING_REQUEST);
@@ -172,7 +172,7 @@ function retry(fn, options, callback) {
     }
 
     const retries = count - 1;
-    const rto = options.timeout << retries; // eslint-disable-line no-bitwise
+    const rto = options.timeout << retries;  
     const timeout = Math.min(rto, options.maxTimeout);
     debug('start timer %s (rto = %s)', timeout, rto);
 

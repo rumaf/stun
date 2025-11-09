@@ -1,11 +1,11 @@
 {
   "name": "stun",
-  "version": "2.1.17",
+  "version": "3.0.0",
   "description": "Session Traversal Utilities for NAT (STUN) client and server.",
   "main": "src/index.js",
   "scripts": {
     "lint": "npx eslint .",
-    "lint-fix": "npx eslint . --fix",
+    "lint-fix": "npx eslint --fix .",
     "cover": "npx jest --coverage",
     "test": "npm run lint && npx jest",
     "test-ci": "npm run lint && npm run cover"
@@ -30,10 +30,9 @@
   },
   "homepage": "https://github.com/nodertc/stun#readme",
   "devDependencies": {
-    "@nodertc/eslint-config": "^0.3.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-prettier": "^5.2.4",
-    "jest": "^29.7.0",
+    "eslint": "^9.39.1",
+    "eslint-plugin-prettier": "^5.5.4",
+    "jest": "^30.2.0",
     "prettier": "^3.6.2"
   },
   "dependencies": {
@@ -71,56 +70,5 @@
       "<rootDir>/node_modules/"
     ],
     "cacheDirectory": ".jest-cache"
-  },
-  "eslintConfig": {
-    "extends": "@nodertc",
-    "rules": {
-      "no-plusplus": "off",
-      "no-bitwise": "off",
-      "consistent-return": "off",
-      "jsdoc/require-returns": "off"
-    },
-    "overrides": [
-      {
-        "files": [
-          "test/**/*.js"
-        ],
-        "env": {
-          "jest": true
-        },
-        "settings": {
-          "import/resolver": {
-            "node": {
-              "moduleDirectory": [
-                "node_modules",
-                "src"
-              ]
-            }
-          }
-        },
-        "rules": {
-          "require-jsdoc": "off",
-          "jsdoc/require-jsdoc": "off",
-          "unicorn/prevent-abbreviations": "off"
-        }
-      },
-      {
-        "files": [
-          "examples/*.js"
-        ],
-        "rules": {
-          "no-console": "off",
-          "require-jsdoc": "off"
-        }
-      },
-      {
-        "files": [
-          "**/attributes/stun-*.js"
-        ],
-        "rules": {
-          "class-methods-use-this": "off"
-        }
-      }
-    ]
   }
 }

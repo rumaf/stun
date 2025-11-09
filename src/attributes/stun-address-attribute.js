@@ -161,6 +161,6 @@ module.exports = class StunAddressAttribute extends StunAttribute {
  * @returns {bool}
  */
 function isPort(port) {
-  // eslint-disable-next-line no-bitwise
+   
   return Number.isInteger(port) && port > 0 && port < 2 << 15;
 }

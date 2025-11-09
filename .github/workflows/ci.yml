@@ -5,15 +5,12 @@ on:
 
 env:
   CI: true
-  node-version: 20
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/setup-node@v3
-      with:
-        node-version: ${{ env.node-version }}
     - uses: actions/checkout@v3
     - run: npm install
     - run: npm run lint
@@ -22,8 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/setup-node@v3
-      with:
-        node-version: ${{ env.node-version }}
     - uses: actions/checkout@v3
     - run: npm install
     - name: run coverage
@@ -46,7 +41,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ${{ fromJson(needs.get-lts.outputs.active) }}
+        node-version:
+          - 10
+          - ${{ fromJson(needs.get-lts.outputs.active) }}
       fail-fast: false
     steps:
     - uses: actions/checkout@v3
@@ -55,23 +52,23 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: npm test
+    - run: npm run test-ci
 
-  # windows:
-  #   needs: [ lint, get-lts ]
-  #   runs-on: windows-latest
-  #   strategy:
-  #     matrix:
-  #       node-version: ${{ fromJson(needs.get-lts.outputs.active) }}
-  #     fail-fast: false
-  #   steps:
-  #   - uses: actions/checkout@v3
-  #   - uses: actions/setup-node@v3
-  #     name: Node.js ${{ matrix.node-version }} on windows-latest
-  #     with:
-  #       node-version: ${{ matrix.node-version }}
-  #   - run: npm install
-  #   - run: npm run test
+  windows:
+    needs: [ lint, get-lts ]
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        node-version: ${{ fromJson(needs.get-lts.outputs.active) }}
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      name: Node.js ${{ matrix.node-version }} on windows-latest
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npm run test-ci
 
   get-lts:
      runs-on: ubuntu-latest
