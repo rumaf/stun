@@ -25,7 +25,7 @@ if (options.help) {
                     Default port is 3478 defined in RFC5389.
   `);
 
-  process.exit(0);  
+  process.exit(0);
 }
 
 /**

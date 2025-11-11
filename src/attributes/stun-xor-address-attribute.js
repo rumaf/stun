@@ -84,7 +84,7 @@ module.exports = class StunXorAddressAttribute extends StunAddressAttribute {
  * @returns {number}
  */
 function xorPort(port) {
-   
+
   return port ^ (constants.kStunMagicCookie >> 16);
 }
 

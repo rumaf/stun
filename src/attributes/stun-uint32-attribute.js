@@ -7,7 +7,7 @@ const {
 const constants = require('../lib/constants');
 const StunAttribute = require('./stun-attribute');
 
-const MAX_UINT32 = -1 >>> 0;  
+const MAX_UINT32 = -1 >>> 0;
 
 const kValue = Symbol('kValue');
 

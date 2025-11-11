@@ -31,7 +31,7 @@ const kAttributes = Symbol.for('kAttributes');
 
 const EMPTY_MESSAGE_INTEGRITY = Buffer.alloc(kStunMessageIntegritySize, 0);
 
-const toUInt32 = (x) => x >>> 0;  
+const toUInt32 = (x) => x >>> 0;
 const MAX_INT32 = 0x7fffffff;
 const MIN_INT32 = -2147483648;
 const isINT32 = (v) => v <= MAX_INT32 && v >= MIN_INT32;
@@ -160,7 +160,7 @@ class StunRequest extends StunMessage {
     if (username.length > 513) {
       throw new Error(
         'Username should be less than 513 bytes, see' +
-          ' https://tools.ietf.org/html/rfc5389#section-15.3'
+        ' https://tools.ietf.org/html/rfc5389#section-15.3'
       );
     }
     return this.addAttribute(attributeType.USERNAME, username);
@@ -193,7 +193,7 @@ class StunRequest extends StunMessage {
 
     // Set default error reason for standart error codes.
     if (!reason && constants.errorNames.has(code)) {
-       
+
       reason = constants.errorReason[constants.errorNames.get(code)];
     }
 
@@ -285,7 +285,7 @@ class StunRequest extends StunMessage {
 
     const crc32buf = message.slice(0, -kStunFingerprintLength);
     return attributeFingerprint.setValue(
-      toUInt32(crc32(crc32buf) ^ kStunFingerprintXorValue)  
+      toUInt32(crc32(crc32buf) ^ kStunFingerprintXorValue)
     );
   }
 

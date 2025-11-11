@@ -70,7 +70,7 @@ module.exports = class StunServer extends Emitter {
       return;
     }
 
-     
+
     switch (stunMessage.type & constants.kStunTypeMask) {
       case isStunRequest:
         this.emit(EVENT_BINDING_REQUEST, stunMessage, rinfo);
@@ -111,8 +111,8 @@ module.exports = class StunServer extends Emitter {
    */
   listen(port, address, callback) {
     if (typeof address === 'function') {
-      callback = address;  
-      address = undefined;  
+      callback = address;
+      address = undefined;
     }
 
     if (typeof callback === 'function') {

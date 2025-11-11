@@ -2,6 +2,11 @@
 
 All notable changes to the "stun" package will be documented in this file.
 
+## [3.0.00] - 2025-11-11
+
+- dep(eslint): update to 9.39.1
+- dep(jest): update to 30.2.0
+- Breaking: require node.js >= 18
 
 ## [2.1.17] - 2023-12-16
 
