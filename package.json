@@ -33,7 +33,7 @@
     "eslint": "^9.39.2",
     "eslint-plugin-prettier": "^5.5.4",
     "jest": "^30.2.0",
-    "prettier": "^3.7.4"
+    "prettier": "^3.8.0"
   },
   "dependencies": {
     "binary-data": "^0.6.0",
